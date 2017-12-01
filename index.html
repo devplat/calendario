@@ -1,1 +1,562 @@
-"hola" 
+<!doctype html>
+<html lang="es">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="theme-color" content="#ff9900">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+	
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+		<link rel="manifest" href="manifest.json">
+		<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+
+		<title>Mi calendario</title>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	
+		<link rel="stylesheet" href="css/app.css">
+		<!-- <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> -->
+
+	</head>
+
+	<body touch-action="none" unresolved>
+
+		<div id="loading_ctn">
+			<div id="loading">
+				<div class="subtle2"><i class="glyphicon glyphicon-cog fa-spin s200" aria-hidden="true"></i></div>
+			</div>
+		</div>
+		
+		<div id="safari_inprivate" style="display: none;">
+			<div id="loading">
+				<div class="subtle2"><i class="fa fa-ban s200 text-danger" style="opacity: 1;" aria-hidden="true"></i></div>
+			</div>				
+			<p>Modo de navegación In Private detectado</p>
+			</p>Para que el calendario funcione tienes que acceder con el modo In Private desactivado</p>
+		</div>				
+		
+		
+		<div id="no_data" style="display: none;">
+			<div id="loading">		
+				<div class="subtle2">Sin datos</div>	
+			</div>
+		</div>		
+		
+		<div id="alert_cookies">Este sitio web utiliza cookies. Si continúa navegando está dando su consentimiento para la aceptación de las mencionadas cookies y la aceptación de nuestra política de cookies, pulse sobre términos para mayor información.<button type="button" id="boton_cookies_aceptar" class="btn btn-primary btn-xs">Aceptar</button></div>
+		
+		<div class="overlay hidn"></div>
+
+		<div class="sidebar hidn">
+			<a href="#"><span class="fa fa-times"></span>Cerrar</a>
+			<a data-toggle="tab" href="#usuarios" style="display:none;" class="multi_usuario"><span class="fa fa-users"></span>Usuarios</a>	
+			<a data-toggle="tab" href="#calen" id="calendario_boton"><span class="fa fa-calendar"></span>Calendario</a>
+			<a data-toggle="tab" href="#compartir"><span class="fa fa-share-alt"></span>Compartir</a>
+			<a data-toggle="tab" href="#backup" style="display: none;"><span class="fa fa-archive"></span>Restaurar</a>
+			<a data-toggle="tab" href="#terminos"><span class="fa fa-info"></span>Términos</a>
+			<a data-toggle="tab" href="#ayuda"><span class="fa fa-question"></span>Ayuda</a>
+			<a data-toggle="tab" href="#devops" style="display: none;" class="devops"><span class="fa fa-stack-overflow"></span>DevOps</a>	
+		</div>
+
+		<div class="tab-content">
+
+		  <div id="calen" class="tab-pane fade">
+			  <div id="calendario">
+			  
+				<table class="table calendario h50">
+					<tbody>
+						<tr>
+							<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
+		  </div>
+		  
+		  <div id="ayuda" class="tab-pane fade">
+		  
+			<table class="table calendario h50">
+				<tbody>
+					<tr>
+						<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+					</tr>
+				</tbody>
+			</table>
+		  
+		  
+		  <div class="container">
+			  <div class="row">
+				<div class="col-sm-12">
+				
+					<h3>Ayuda</h3>
+					
+					<div class="col-sm-6 col-sm-offset-3" >
+						<button class="borrar_ls btn btn-danger btn-block" title="Borrar LS">
+							<i class="fa fa-trash-o mr5"></i>Borrar Caché
+						</button>				
+					</div>
+				
+				</div>
+			  </div>
+		  </div>
+			
+		 </div>
+		 
+		  <div id="usuarios" class="tab-pane fade">
+		  
+				<table class="table calendario h50">
+					<tbody>
+						<tr>
+							<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+						</tr>
+					</tbody>
+				</table>
+			  
+				<div class="container">
+				  <div class="row">
+					<div class="col-sm-12">
+						<h3>Usuarios</h3>
+						
+						<table class="table" id="usuarios_multi">
+						</table>
+						
+					</div>
+				  </div>
+				</div>
+		 </div>		  
+		  
+		 <div id="terminos" class="tab-pane fade">
+
+			<table class="table calendario h50">
+				<tbody>
+					<tr>
+						<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<div class="container">
+			  <div class="row">
+				<div class="col-sm-12">
+
+					<h3>Términos</h3>
+					<p>La información de este calendario carece de toda validez, se muestra a titulo informativo pero no se puede garantizar que sea correcta.</p>
+					<h3>Política de cookies</h3>
+					<p>Una cookie es un pequeño fichero de texto que se almacena en su navegador cuando visita casi cualquier página web. Su utilidad es que la web sea capaz de recordar su visita cuando vuelva a navegar por esa página. Las cookies suelen almacenar información de carácter técnico, preferencias personales, personalización de contenidos, estadísticas de uso, enlaces a redes sociales, acceso a cuentas de usuario, etc. El objetivo de la cookie es adaptar el contenido de la web a su perfil y necesidades, sin cookies los servicios ofrecidos por cualquier página se verían mermados notablemente. Si desea consultar más información sobre qué son las cookies, qué almacenan, cómo eliminarlas, desactivarlas, etc., le rogamos se dirija a este enlace.</p>
+					<p>Cookies utilizadas en este sitio web</p>
+					<p>Siguiendo las directrices de la Agencia Española de Protección de Datos procedemos a detallar el uso de cookies que hace esta web con el fin de informarle con la máxima exactitud posible.</p>
+					<p>Este sitio web utiliza las siguientes cookies propias:</p>
+					<p>Este sitio web utiliza las siguientes cookies de terceros:</p>
+					<p>Google Analytics: Almacena cookies para poder elaborar estadísticas sobre el tráfico y volumen de visitas de esta web. Al utilizar este sitio web está consintiendo el tratamiento de información acerca de usted por Google. Por tanto, el ejercicio de cualquier derecho en este sentido deberá hacerlo comunicando directamente con Google.</p>
+					<p>Desactivación o eliminación de cookies</p>
+					<p>En cualquier momento podrá ejercer su derecho de desactivación o eliminación de cookies de este sitio web. Estas acciones se realizan de forma diferente en función del navegador que esté usando. Aquí le dejamos una guía rápida para los navegadores más populares.</p>
+					<p>Notas adicionales</p>
+					<p>Esta web se hacen responsables ni del contenido ni de la veracidad de las políticas de privacidad que puedan tener los terceros mencionados en esta política de cookies.</p>
+					<p>Los navegadores web son las herramientas encargadas de almacenar las cookies y desde este lugar debe efectuar su derecho a eliminación o desactivación de las mismas. Ni esta web ni sus representantes legales pueden garantizar la correcta o incorrecta manipulación de las cookies por parte de los mencionados navegadores.</p>
+					<p>En algunos casos es necesario instalar cookies para que el navegador no olvide su decisión de no aceptación de las mismas.</p>
+					<p>En el caso de las cookies de Google Analytics, esta empresa almacena las cookies en servidores ubicados en Estados Unidos y se compromete a no compartirla con terceros, excepto en los casos en los que sea necesario para el funcionamiento del sistema o cuando la ley obligue a tal efecto. Según Google no guarda su dirección IP. Google Inc. es una compañía adherida al Acuerdo de Puerto Seguro que garantiza que todos los datos transferidos serán tratados con un nivel de protección acorde a la normativa europea. Puede consultar información detallada a este respecto en este enlace. Si desea información sobre el uso que Google da a las cookies le adjuntamos este otro enlace.</p>
+					
+				</div>
+			  </div>
+			</div>
+
+		  </div>    
+		  
+		  <div id="compartir" class="tab-pane fade">
+		  
+			<table class="table calendario h50">
+				<tbody>
+					<tr>
+						<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+					</tr>
+				</tbody>
+			</table>
+			
+		  <div class="container">
+			  <div class="row">
+				<div class="col-sm-12" >
+				
+					<h3 class="text-center">Compartir</h3>
+					<hr>
+					
+					<a href="#" class="compartir" onclick="get_url_share.bind(this)('email');"><span class="fa fa-external-link text-success"></span>Email</a>
+					<a href="#" class="compartir" data-action="share/whatsapp/share" onclick="get_url_share.bind(this)('wa');"><span class="fa fa-whatsapp wa"></span>Whatsapp</a>
+					<a href="#" class="compartir" onclick="get_url_share.bind(this)('tg');"><span class="fa fa-telegram tg"></span>Telegram</a>
+					<br>
+
+				</div>
+			  </div>
+		  </div>
+		  
+			<div style="position: relative">
+				<p class="footer">
+				<small>La información de tu calendario está siempre anonimizada, aparece tu calendario completo pero no aparece tu nombre o ninguna otra información que sea sensible.</small>
+				<br>
+				<br>
+				<small>Comparte esta información <strong>con sentido común</strong>, si alguien sabe que estás de vacaciones durante 2 semanas sabe que podría entrar a tu casa a robar...</small>
+				</p>
+			</div>	
+			
+		  </div>
+
+		  <div id="backup" class="tab-pane fade">
+		  
+			<div id="calendario">
+				<table class="table calendario h50">
+					<tbody>
+						<tr>
+							<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		  <div class="container">
+			  <div class="row">
+				<div class="col-sm-12" >
+				
+					<h3 class="text-center">Guardar/Restaurar</h3>
+					<hr>
+						<a href="#" class="compartir"><span class="fa fa-download text-success"></span>Descargar</a>
+						<a href="#" class="compartir" id="Restaurar"><span class="fa fa-upload text-danger"></span>Restaurar</a>
+						<input type="file" name="upload" id="upload" style="display:none;" onchange='onChooseFile(event, onFileLoad.bind(this, "contents"))'>
+					<br>
+					
+					<p id="contents"></p>
+
+				</div>
+			  </div>
+		  </div>
+		  
+			<div style="position: relative">
+				<p class="footer">
+				<small>Cuando extraes tu calendario desde PDC se almacena en el navegador de tu dispositivo (móvil/tablet/ordenador).</small>
+				<br>
+				<br>
+				<small>Si borras los archivos de tu navegador esta información se perderá, desde aqui puedes hacer copias de seguridad para luego recuperarlas.</small>
+				</p>
+			</div>	
+			
+		  </div>
+		  
+			<div id="devops" class="tab-pane fade">
+			
+				<div id="calendario">
+					<table class="table calendario h50">
+						<tbody>
+							<tr>
+								<th class="fh"><span class="fa fa-bars sb_toggle" ></span></th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+		  
+			  <div class="container">
+				  <div class="row">
+					<div class="col-sm-12" >
+					
+						<h3 class="text-center">Debug</h3>
+						<hr>
+						
+						<div class="col-sm-6 col-sm-offset-3" >
+							<button class="borrar_ls btn btn-danger btn-block" title="Borrar LS">
+								<i class="fa fa-trash-o mr5"></i>Borrar Local Storage
+							</button>				
+							<button class="notify_now btn btn-success btn-block" title="Notificar">
+								<i class="fa fa-trash-o mr5"></i>Notificar
+							</button>	
+							<button class="notify_delay btn btn-info btn-block" title="Notificar 30s">
+								<i class="fa fa-trash-o mr5"></i>Notificar delay 30s
+							</button>
+							<button class="ask_notification_permission btn btn-info btn-block" title="Permiso notificaciones">
+								<i class="fa fa-trash-o mr5"></i>Solicitar permiso notificaciones
+							</button>
+							<button class="snd_test btn btn-default btn-block" title="Permiso notificaciones">
+								<i class="fa fa-trash-o mr5"></i>Reproducir sonido
+							</button>
+							<button class="snd_test_delay btn btn-success btn-block" title="Permiso notificaciones">
+								<i class="fa fa-trash-o mr5"></i>Reproducir sonido 30s
+							</button>
+							<p>Permiso notificaciones: <span id="permisos_notificaciones"></p></p>
+							<p>Estado worker: <span id="estado_worker"></p></p>
+							<p>Log worker: <span id="log_worker"></p></p>
+						</div>
+						
+						<br>
+
+					</div>
+				  </div>
+			  </div>
+			
+		  </div>
+		  
+		</div>
+
+		<div id="swiper">
+		  <svg id="Swipe-horizontal_1" data-name="Swipe horizontal 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+			<path class="hand-x" d="M139.93,113.56l-41.12-6.93V76.08a9.25,9.25,0,0,0-9.25-9.25h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,122.65c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,113.56Z"/>
+			<g class="swipe-horizontal">
+			  <path class="line-horizontal" d="M70.85,42c19.69-12.46,37,0,37,0"/>
+			  <polyline class="arrow-left" points="76.6 46.01 68.37 43.43 68.38 43.41 70.96 35.18"/>
+			  <polyline class="arrow-right" points="100.21 44.66 108.43 42.08 108.43 42.06 105.85 33.84"/>
+			</g>
+		  </svg>
+		</div>
+		  
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript">
+		
+			var calendar;
+			
+			function get_url_share(type) {
+			
+				var calendario_cache = JSON.parse(localStorage.getItem('calendario_cache')) || {};
+				var user_list = JSON.parse(localStorage.getItem('calendario_user_list')) || { hashes: [], datos : {} };
+				var my_hash = user_list.hashes[0];
+				var _parameters = calendario_cache[my_hash].url;
+				var _url_base = location.href.split('?')[0];
+				var _whole_url = _url_base + _parameters;
+				
+				switch (type) {
+					case 'wa':
+						$(this).attr('href','whatsapp://send?text='+_whole_url)
+						//<a href="whatsapp://send?text=" class="compartir" data-action="share/whatsapp/share" onclick="$(this).attr('href','whatsapp://send?text='+location.href);"><span class="fa fa-whatsapp wa"></span>Whatsapp</a>
+						break;
+					case 'tg':
+						$(this).attr('href','https://t.me/share/url?url='+_whole_url);
+						//<a href="https://t.me/share/url?url=" class="compartir" data-action="share/whatsapp/share" onclick="$(this).attr('href','https://t.me/share/url?url='+location.href);"><span class="fa fa-telegram tg"></span>Telegram</a>
+						break;
+					case 'email':
+						$(this).attr('href',"mailto:?subject=Mi calendario&amp;Body=Ver calendario: " +_whole_url);
+					break;
+				}				
+				
+				//$(this).attr('href','whatsapp://send?text='+location.href
+				//$(this).attr('href','whatsapp://send?text='+location.href
+			}
+			
+			function clean_and_reload() {
+				var _clean = location.href.split('?')[0];
+				location.href = _clean;
+				
+				if(location.href != _clean)
+					location.href = _clean;
+				else 
+					location.reload();				
+			}
+		
+			$( document ).ready(function() {
+			
+				$('body').on('click','.sb_toggle,.sidebar>a,.overlay',function(){
+					$('.sidebar,.overlay').toggleClass('hidn');
+				});
+				
+				$(".overlay,.sidebar").on('swipeleft', function() {
+					$('.sidebar,.overlay').toggleClass('hidn');
+				});
+				
+				$('.borrar_ls').on('click',function(){
+					try {
+						calendar.borrar_cache(true, function(){
+							alert('LS borrada');
+							clean_and_reload();
+						});
+					}
+					catch(e) {
+						localStorage.removeItem('calendario_cookies');
+						localStorage.removeItem('calendario_user_list');
+						localStorage.removeItem('calendario_isdev');
+						localStorage.removeItem('calendario_mes');
+						localStorage.removeItem('calendario_hash');
+						localStorage.removeItem('calendario_cache');
+						addToHomescreen.removeSession();
+						alert('LS borrada');
+						clean_and_reload();
+					
+					}
+				});
+				
+				$('.notify_now').on('click',function(){
+					workr.active.postMessage({type: 'notify_now', content: 'Notificar ahora'});
+				});
+
+				$('.notify_delay').on('click',function(){
+					workr.active.postMessage({type: 'notify_delay_30', content: 'Notificar con retraso 30 segundos'});
+				});
+
+				$('.ask_notification_permission').on('click',function(){
+					ask_permission_notifications();
+				});
+				
+				$('.snd_test').on('click', function() {
+					snd.play('Ceres');
+				});
+				
+				$('.snd_test_delay').on('click', function() {
+					setTimeout(function(){
+						snd.play('Ceres');
+					},30000);
+				});
+				
+				$('body').on('click','.delete_multi_user',function(){
+					
+					var _hash = $(this).attr('data-hash');
+					user_list = JSON.parse(localStorage.getItem('calendario_user_list')) || { hashes: [], datos : {} };
+					var _index = user_list.hashes.indexOf(_hash);
+					user_list.hashes.splice(_index, 1);
+					delete user_list.datos[_hash];					
+					localStorage.setItem('calendario_user_list',JSON.stringify(user_list));
+					alert('Calendario borrado');
+					clean_and_reload();					
+				});
+				
+				$('body').on('click','.change_multi_user', function(){
+					
+					var _hash = $(this).attr('data-hash');
+					user_list = JSON.parse(localStorage.getItem('calendario_user_list')) || { hashes: [], datos : {} };
+					var _nombre = user_list.datos[_hash].nombre;
+					calendar.cambiar_calendario(_hash);
+					$('#nombre_calendario').html(_nombre);
+					$('.tab-pane').removeClass('active in');
+					$('#calen').addClass('active in');
+				});				
+
+				if(localStorage.getItem('calendario_isdev') == "1") {
+					$('.devops').show();
+				}
+				
+				if(localStorage.getItem('calendario_cookies') == null) {
+					$(alert_cookies).fadeIn();
+				}
+				
+				$('#boton_cookies_aceptar').on('click',function() {
+					localStorage.setItem('calendario_cookies', 'yep');
+					$(alert_cookies).fadeOut();
+				});
+				
+				addToHomescreen();
+			
+			});
+		
+
+			var fkcu = false;
+			
+			function _init_test() {
+			
+				if(fkcu)
+					return false;
+			
+				fkcu = true;
+			
+				if(localStorage.getItem('calendario_swiper') == null) {
+					$('#swiper').show();
+						$( document ).ready(function() {
+						setTimeout(function(){
+							$('#swiper').hide();
+						}, 2000);
+					});
+					localStorage.setItem('calendario_swiper', '1');
+				}
+				
+				setTimeout(function() {
+					$('#loading_ctn').fadeOut();
+					$('#calen').addClass('active in');
+				}, 1000);
+				
+			}
+			
+			
+			// ------------------------------------------------------------------------------------------------------------------------
+
+			if (/Mobi|Tablet|iPad|iPhone/.test(navigator.userAgent)) {
+				// 
+			}
+			else {
+				setTimeout(function() {
+					alert('web diseñada sólo para móviles, puede tener fallos de visualización en escritorio');
+				}, 500);				
+			}
+
+		</script>
+		
+		<script src="js/app.js"></script>				
+		
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109654357-1"></script>
+		
+		<script>
+		
+			try {
+				
+				localStorage.setItem('calendario_safari_private', '');
+				if(localStorage.getItem('calendario_cache') != null && location.href.indexOf('~') == -1)
+				
+				calendar = calendario.crear('#calendario', { altura: '400px', tipo: 'extendidoqr'}, _init_test, function() {
+					$('#loading_ctn').fadeOut();
+					$('#no_data').show();
+				});			
+
+			}
+			catch(e) {
+				$('#loading_ctn').fadeOut();
+				$('#safari_inprivate').show();
+				$('body').addClass('inprivate');
+			}		
+		
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-109654357-1');
+			
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			  var target = $(e.target).attr("href").trim();
+			  target = target.replace(/#/g,'');
+			  target = target == 'calen' ? 'calendario' : target;
+			  ga('set', 'page', '/'+target);
+			  ga('send', 'pageview');
+			});			
+			
+			var workr;
+
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('worker.js')
+				.then(function(reg){
+					workr = reg;
+					$('#estado_worker').html('registered');
+				}).catch(function(err) {
+					$('#estado_worker').html('error: '+err);
+				});
+			}
+			
+			function ask_permission_notifications() {
+				if (!Notification) {
+					alert('Tu dispositivo no soporta notificaciones');
+					return;
+				}
+				if (Notification.permission !== "granted") {
+					Notification.requestPermission(function () {
+						if (Notification.permission == 'granted') {
+							$('#permisos_notificaciones').html('granted');
+						}
+						else {
+							$('#permisos_notificaciones').html('denied');
+						}            
+					});
+				}
+			}
+			
+			ask_permission_notifications();			
+		  
+		</script>		
+		
+	</body>
+
+</html>
